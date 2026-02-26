@@ -1,11 +1,57 @@
-import express from "express";
+import express, { type Request, type Response} from "express";
+import { adicionarservico, listarServicos ,apagarServico ,obterServico} from "./servico.js";
 
 const app = express(); 
+app.use(express.json ())
 
-app.get("/hello", (rep, res)=> {
+app.get("/hello", (req: Request, res: Response)=> {
     console.log("hello world");
     res.send("hello wrold")
 });
+//rota para adicionar um serviço novo
+ app.post("/adicionar-servico", (req: Request, res: Response) => {
+   const servico = req.body
+
+console.log(servico)
+
+ const AddServicoResponse = adicionarservico(servico)
+ res.json(AddServicoResponse)
+ })
+
+
+//rota para listar todos os serviços
+app.get("/listar-servico", (req: Request, res: Response)=> {
+const listServicoResponse = listarServicos()
+
+res.json(listServicoResponse)
+})
+
+
+//rota para apagar umm servico
+app.delete("/apagar-servico", (req: Request, res: Response) =>{
+    const { nome } = req.query
+   
+    if (nome) {
+        const apagarServicoResponse = apagarServico(nome as string)
+
+        res.json(apagarServicoResponse)
+    }else {
+        res.json({
+            message:"Name do servico eh obrigatorio"
+        })
+    }
+    })
+
+app.get("/obter-servico", (req: Request, res: Response) => {
+    const {nome} = req.query
+    if (nome) {
+        const obterServicoResponse = obterServico(nome as string)
+res.json({
+    message: "Nome do servico eh obrigatorio"
+      })
+    }
+})
+
 
 app.listen(8080, () => {
 console.log("servidor running on port 8080");
