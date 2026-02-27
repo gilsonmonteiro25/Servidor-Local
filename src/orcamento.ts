@@ -1,16 +1,42 @@
-interface pedidoServico {
-    cliente: string,
-    descricoa: string,
-    horasEstimadas: number,
-    urgente: boolean
-};
+import { catalogoDeServicos } from "./servico.js"
+import { type pedidoServicoType, type servicoType } from "./utils/types.js"
 
-function processarPedido (pedido: pedidoServico, precoHora: number) {
-    const valorBase = pedido.horasEstimadas * precoHora;
-    const taxaUrgencia= pedido.urgente ? valorBase + valorBase * 0.3 :0
-    const valorTotal = valorBase + taxaUrgencia
+const taxaUrgencia: number = 0.3
+const minimodescontado: number = 100
+const percentagendescontado: number = 0.1
+const servicosSelecionados: servicoType[] = []
 
-return {
-    valorTotal: valorTotal
- }
+// funcao para selecionar servicos e horasEstimadas
+
+export function seleccionarServicos(nome: string,) {
+    for (let i = 0; i < catalogoDeServicos.length; i++) {
+        if (catalogoDeServicos[i]?.nome === nome) {
+            servicosSelecionados.push(catalogoDeServicos[i]!)
+            return true
+        }
+    }
+ return false
+}
+
+
+export function calcularOrcamento(pedido: pedidoServicoType,) {
+   let totalBruto: number = 0
+   let totalFinal: number = 0
+
+   servicosSelecionados.map((servico: servicoType) => {
+let totalDoServico: number = servico.precoHora * pedido.horasEstimadas
+
+totalBruto = totalBruto + totalDoServico
+   })
+
+   totalFinal = totalBruto
+   
+if (pedido.urgente) {
+    totalFinal = totalBruto + ( totalBruto * taxaUrgencia)
+}
+if (totalBruto >= minimodescontado) {
+   totalFinal = totalFinal - (totalBruto * percentagendescontado)
+}
+return totalFinal
+
 }

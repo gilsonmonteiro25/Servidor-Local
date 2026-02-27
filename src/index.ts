@@ -1,5 +1,6 @@
 import express, { type Request, type Response} from "express";
 import { adicionarservico, listarServicos ,apagarServico ,obterServico} from "./servico.js";
+import { calcularOrcamento, seleccionarServicos } from "./orcamento.js";
 
 const app = express(); 
 app.use(express.json ())
@@ -20,7 +21,7 @@ console.log(servico)
 
 
 //rota para listar todos os serviços
-app.get("/listar-servico", (req: Request, res: Response)=> {
+app.get("/listar-servico", (req: Request, res: Response) => {
 const listServicoResponse = listarServicos()
 
 res.json(listServicoResponse)
@@ -28,7 +29,7 @@ res.json(listServicoResponse)
 
 
 //rota para apagar umm servico
-app.delete("/apagar-servico", (req: Request, res: Response) =>{
+app.delete("/apagar-servico", (req: Request, res: Response) => {
     const { nome } = req.query
    
     if (nome) {
@@ -52,7 +53,22 @@ res.json({
     }
 })
 
+// rota para selecionar servicos
+app.post("/selecionar-servico", (req: Request, res: Response) => {
+    const {nome} = req.body
 
+    const selecionarServicoResponse = seleccionarServicos(nome as string)
+    res.json(selecionarServicoResponse)
+})
+
+
+// rota para selecionar servicos
+app.post("/calcular-orcamento", (req: Request, res: Response) => {
+    const { pedido } = req.body
+
+const calcularorcamentoresponse = calcularOrcamento(pedido)
+res.json(calcularorcamentoresponse)
+})
 app.listen(8080, () => {
 console.log("servidor running on port 8080");
 });
