@@ -103,6 +103,62 @@ app.post("/criar-prestador", (req: Request, res: Response) => {
 
 
 
+console.log(servico)
+
+ const AddServicoResponse = adicionarservico(servico)
+ res.json(AddServicoResponse)
+ })
+
+
+//rota para listar todos os serviços
+app.get("/listar-servico", (req: Request, res: Response) => {
+const listServicoResponse = listarServicos()
+
+res.json(listServicoResponse)
+})
+
+
+//rota para apagar umm servico
+app.delete("/apagar-servico", (req: Request, res: Response) => {
+    const { nome } = req.query
+   
+    if (nome) {
+        const apagarServicoResponse = apagarServico(nome as string)
+
+        res.json(apagarServicoResponse)
+    }else {
+        res.json({
+            message:"Name do servico eh obrigatorio"
+        })
+    }
+    })
+
+app.get("/obter-servico", (req: Request, res: Response) => {
+    const {nome} = req.query
+    if (nome) {
+        const obterServicoResponse = obterServico(nome as string)
+res.json({
+    message: "Nome do servico eh obrigatorio"
+      })
+    }
+})
+
+// rota para selecionar servicos
+app.post("/selecionar-servico", (req: Request, res: Response) => {
+    const {nome} = req.body
+
+    const selecionarServicoResponse = seleccionarServicos(nome as string)
+    res.json(selecionarServicoResponse)
+})
+
+
+// rota para selecionar servicos
+app.post("/calcular-orcamento", (req: Request, res: Response) => {
+    const { pedido } = req.body
+
+const calcularorcamentoresponse = calcularOrcamento(pedido)
+res.json(calcularorcamentoresponse)
+})
 app.listen(8080, () => {
   console.log("Server running on port 8080")
 })

@@ -33,6 +33,5 @@ let variavel: string = "variavel";
 desconto === TaxaUrgencia && desconto > TaxaUrgencia ?
     TaxaUrgencia += desconto : TaxaUrgencia -= desconto;
 
-total = (horasTrabal 
-        hadas * precoHora) + TaxaUrgencia - desconto;
+total = (horasTrabalhadas * precoHora) + TaxaUrgencia - desconto;
 
