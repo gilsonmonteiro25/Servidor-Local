@@ -1,41 +1,11 @@
-import db from "./lib/db.js"
-import type { PrestadorDBType } from "./utils/types.js"
-import { generateUUID } from "./utils/uuid.js"
+import db from "../lib/db.js"
+import type { PrestadorDBType } from "../utils/types.js"
+import { generateUUID } from "../utils/uuid.js"
 
-class Prestador {
-    nome: string
-    precoHora: number
-    profissao: string
-    minimoParaDesconto: number
-    percentagemDesconto: number
-    taxaUrgencia: number
 
-    constructor(
-        nomeDoPrestador: string,
-        precoHoraDoPrestador: number,
-        profissaoDoPrestador: string,
-        minimoParaDescontoDoPrestador: number,
-        percentagemDescontoDoPrestador: number,
-        taxaUrgenciaDoPrestador: number
-    ) {
-        this.nome = nomeDoPrestador
-        this.precoHora = precoHoraDoPrestador
-        this.profissao = profissaoDoPrestador
-        this.minimoParaDesconto = minimoParaDescontoDoPrestador
-        this.percentagemDesconto = percentagemDescontoDoPrestador
-        this.taxaUrgencia = taxaUrgenciaDoPrestador
-    }
-
-    alterarPrecoHora(novoPrecoHora: number) {
-        this.precoHora = novoPrecoHora
-    }
-
-    alterarNome(novoNome: string) {
-        this.nome = novoNome
-    }
-}
-export async function create(prestador:PrestadorDBType) {
-     try {
+export const PrestadorModel = {
+    async create(prestador: PrestadorDBType) {
+        try {
             const [rows] = await db.execute(
                 `INSERT INTO tbl_prestadores 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
@@ -58,16 +28,16 @@ export async function create(prestador:PrestadorDBType) {
             console.log(err)
             return null
         }
-}
+    },
 
-export async function getAll() {
-          const [rows] = await db.execute("SELECT * FROM tbl_prestadores")
+    async getAll() {
+        const [rows] = await db.execute("SELECT * FROM tbl_prestadores")
 
         return rows
-    }
+    },
 
-    export async function get(id: string) {
-          try {
+    async get(id: string) {
+        try {
             const [rows] = await db.execute(
                 `SELECT * FROM tbl_prestadores 
                 WHERE tbl_prestadores.id = ?`,
@@ -81,10 +51,10 @@ export async function getAll() {
             console.log(err)
             return null
         }
-    }
+    },
 
-    export async function update(id:string, prestador:PrestadorDBType) {
-         try {
+    async update(id: string, prestador: PrestadorDBType) {
+        try {
             const [rows] = await db.execute(
                 `UPDATE tbl_prestadores 
                 SET taxa_urgencia = ?, 
@@ -113,9 +83,10 @@ export async function getAll() {
             console.log(err)
             return null
         }
-    }
-    export async function deletePrestador(id: string) {
-         try {
+    },
+
+    async delete(id: string) {
+        try {
             const rows: any = await db.execute(
                 `DELETE FROM tbl_prestadores 
                 WHERE id = ?`,
@@ -129,4 +100,4 @@ export async function getAll() {
             return null
         }
     }
-
+}
