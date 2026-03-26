@@ -15,7 +15,7 @@ components:
       type: object
       properties:
          id:
-         type: string
+         type: integer
          exemple: 1
          nome:
          type: string
@@ -36,11 +36,44 @@ components:
          type: string
          exemple:  "2022-01-01T00:00:00.000Z"
 
-    # schema genarico de rsposta de erro
-    responseError:
-  type: object
+
+# schema para criar um novo servico
+createService:
+ type: object
+ properties:
+   nome:
+     type: string
+     exemple: "serviço de Limpeza"
+   descricao:
+     type: string
+     exemple:
+   categoria:
+    type: string
+    exemple: limpeza
+   enabled: 
+   type: boolean
+   exemple: true
+     
+# schema generico para sucesso
+responseSucess:
+  type:
   properties:
-massage:
+  message:
+    type: string
+    exemple: "serviço criado com sucesso"
+  status  :
+    type: boolean
+    exemple: true
+  data:
+    type: object
+    $ref: "#/components/schemas/servico"
+
+
+# schema genarico de rsposta de erro
+responseError:
+    type: object
+properties:
+ massage:
 type: string
 exemple: "erro ao buscar servicos"
 data:
