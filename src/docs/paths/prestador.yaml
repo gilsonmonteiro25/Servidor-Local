@@ -1,0 +1,141 @@
+paths:
+  /prestador:
+    get:
+      summary: Listar todos os prestadores
+      tags:
+        - Prestador
+      description: Retorna uma lista de todos os prestadores disponíveis
+      responses:
+        "200":
+          description: Lista de prestadores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Prestador"
+        "400":
+          description: Nenhum prestador encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+    post:
+      summary: Criar um novo prestador
+      tags:
+        - Prestador
+      description: Cria um novo prestador
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePrestador"
+      responses:
+        "200":
+          description: Prestador criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSucessPrestador"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /prestador/{id}:
+    get:
+      summary: Buscar prestador por ID
+      tags:
+        - Prestador
+      description: Retorna um prestador específico pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do prestador
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Prestador encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSucessPrestador"
+        "404":
+          description: Prestador não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+    put:
+      summary: Atualizar prestador
+      tags:
+        - Prestador
+      description: Atualiza um prestador pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do prestador
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreatePrestador"
+      responses:
+        "200":
+          description: Prestador atualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSucessPrestador"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Prestador não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+
+    delete:
+      summary: Apagar prestador
+      tags:
+        - Prestador
+      description: Remove um prestador pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do prestador
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Prestador apagado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSucessPrestador"
+        "404":
+          description: Prestador não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"

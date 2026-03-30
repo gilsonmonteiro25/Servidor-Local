@@ -1,0 +1,156 @@
+paths:
+  /orcamento:
+    get:
+      summary: Listar todos os orçamentos
+      tags:
+        - Orçamento
+      description: Retorna uma lista de todos os orçamentos disponíveis
+      responses:
+        "200":
+          description: Lista de orçamentos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Orcamento"
+        "400":
+          description: "Nenhum orçamento encontrado"
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/create:
+    post:
+      summary: Criar um novo orçamento
+      tags:
+        - Orçamento
+      description: Criar um novo orçamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreateOrcamento"
+      responses:
+        "200":
+          description: Orçamento criado com sucesso
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseSucess"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/get-by-id/{id}:
+    get:
+      summary: Buscar um orçamento por id
+      tags:
+        - Orçamento
+      description: Retorna um orçamento específico pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do orçamento
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Orçamento encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseSucess"
+        "404":
+          description: Orçamento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/update/{id}:
+    put:
+      summary: Atualizar um orçamento
+      tags:
+        - Orçamento
+      description: Atualiza um orçamento específico pelo id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do orçamento a ser atualizado
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/CreateOrcamento"
+      responses:
+        "200":
+          description: Orçamento atualizado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseSucess"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+        "404":
+          description: Orçamento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"
+
+  /orcamento/delete/{id}:
+    delete:
+      summary: Apagar um orçamento
+      tags:
+        - Orçamento
+      description: Apagar um orçamento específico pelo ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do orçamento a ser apagado
+          schema:
+            type: integer
+            example: 1
+      responses:
+        "200":
+          description: Orçamento apagado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseSucess"
+        "404":
+          description: Orçamento não encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/ResponseError"

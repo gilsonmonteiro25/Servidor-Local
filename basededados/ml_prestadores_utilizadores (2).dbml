@@ -1,0 +1,26 @@
+Table table_prestadores [headercolor: #175e7a] {
+	id integer [ pk, increment, not null, unique ]
+	taxaDesconto decimal
+	percentagenDescontado decimal
+	minimoDescontado decimal
+	nif numeric [ not null ]
+	profissao varchar(255) [ not null ]
+	enable boolean [ not null ]
+	created_at datetime [ not null ]
+	updated_at datetime [ not null ]
+}
+
+Table table_utilizadores [headercolor: #175e7a] {
+	id varchar(255) [ pk, not null, unique ]
+	nome varchar(50) [ not null ]
+	numero varchar(100) [ not null ]
+	data_nascimento date [ not null ]
+	email varchar(100) [ not null ]
+	telefone varchar(13)
+	pais varchar(100) [ not null ]
+	localidade varchar(100) [ not null ]
+	enable boolean [ not null ]
+	created_at datetime [ not null ]
+	updated_at datetime [ not null ]
+}
+
