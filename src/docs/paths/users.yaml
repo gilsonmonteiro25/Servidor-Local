@@ -3,7 +3,7 @@ paths:
     get:
       summary: Listar todos os usuários
       tags:
-        - Usuarios
+        - Usuários
       description: Retorna uma lista de todos os usuários disponíveis
       responses:
         "200":
@@ -20,11 +20,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
-
+  /user/create:
     post:
       summary: Criar um novo usuário
       tags:
-        - Usuarios 
+        - Usuários 
       description: Cria um novo usuário
       requestBody:
         required: true
@@ -50,7 +50,7 @@ paths:
     get:
       summary: Buscar usuário por ID
       tags:
-        - Usuarios
+        - Usuários
       description: Retorna um usuário específico pelo ID
       parameters:
         - name: id
@@ -73,11 +73,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
-
+  /user/update/{id}:
     put:
       summary: Atualizar usuário
       tags:
-        - Usuarios
+        - Usuários
       description: Atualiza um usuário pelo ID
       parameters:
         - name: id
@@ -113,10 +113,10 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-    delete:
+    /user/delete/{id}:
       summary: Apagar usuário
       tags:
-        - Usuarios
+        - Usuários
       description: Remove um usuário pelo ID
       parameters:
         - name: id
@@ -138,4 +138,38 @@ paths:
           content:
             application/json:
               schema:
+                $ref: "#/components/schemas/ResponseError"
+
+  /users/login: 
+    post:
+      summary: login de um usuário
+      tags:
+      - Usuários
+      description: Faqzer login de un usuário
+      requestBody:
+        requered: true
+        conten:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginUser"
+
+      responses:
+        "200":
+          description: Usuário logado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseSucess"
+        "404":
+          description: Usuário não encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        "400":
+          description: Dados inválidos
+          content:
+            application/json:
+              schema:
+                type: object
                 $ref: "#/components/schemas/ResponseError"

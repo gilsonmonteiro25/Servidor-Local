@@ -142,6 +142,14 @@ export const UserController = {
 
         const token = jwt.sign(payload, process.env.JWT_SECRET as string, { expiresIn: "1h" })
 
+        return res.status(200).json({
+            status: "sucess",
+            message: "Login realizado com sucesso",
+            data: {
+                token,
+                user: payload
+            }
+        })
     },
 
     async delete(req: Request, res: Response) {

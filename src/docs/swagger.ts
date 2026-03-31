@@ -13,8 +13,25 @@ servers: [
 url:'http://localhost:8080',
 description: 'dev',
     }
-]
+],
+components:{
+    securitySchemes: {
+        bearerAuth:{
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT",
+        }
+    }
  },
+
+security: [
+    {
+        bearerAuth: []
+    }
+]
+},
+
+
 apis: [
     path.join(process.cwd(), "./src/docs/schemas/*.yaml"),
     path.join(process.cwd(), "./src/docs/paths/*.yaml"),

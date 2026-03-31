@@ -7,25 +7,25 @@
         example: 1
       nome:
         type: string
-        example: Helio Barbosa
+        example: Gilson Monteiro
       numero_identificação:
         type: number
         example: M001S
       data_nascimento:
         type: date
-        example: 22-03-1997
+        example: 26-11-1999
       email:
         type: string
-        example: barbosahifb1997@gmail.com
+        example: gilsonpatasmonteiro@gmail.com
       telefone:
         type: number
-        example: 9867602
+        example: 5872820
       pais:
         type: string
         example: Cabo Verde
       localidade:
         type: string
-        example: Ponta D agua
+        example: Tarrafal
       password:
         type: string
         example: 12345678
@@ -42,6 +42,15 @@
       #schema para criar um novo utilizador
     
     
+    LoginUser:
+     type: object
+     propertes:
+        email:
+          tyte: string
+          exemple: "user@example.com"
+        password:
+        type: string
+        string: "senha123"
       # Schema genérico de resposta de sucesso
     ResponseSucess:
       type: object

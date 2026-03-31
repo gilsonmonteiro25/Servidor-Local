@@ -14,69 +14,69 @@ components:
     servico:
       type: object
       properties:
-         id:
-         type: integer
-         exemple: 1
-         nome:
-         type: string
-         exemple: "servico de limpeza"
-         descricao:
-         type: string
-         exemple: "servico de limpeza proficional para residências e..."
-         categoria:
-         type: string
-         exemple: "limpeza"
-         enabled:
-         type: boolean
-         exemple: true
-         created_at:
+        id:
+           type: integer
+           example: 1
+        nome:
+          type: string
+          example: "servico de limpeza"
+        descricao:
+          type: string
+          exemple: "servico de limpeza proficional para residências e..."
+        categoria:
+          type: string
+          example: "limpeza"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
            type: string
-         exemple: "2022-01-01T00:00:00.000Z"
-         updated_at:
-         type: string
-         exemple:  "2022-01-01T00:00:00.000Z"
+           example: "2022-01-01T00:00:00.000Z"
+        updated_at:
+           type: string
+           example:  "2022-01-01T00:00:00.000Z"
 
 
-# schema para criar um novo servico
-createService:
- type: object
- properties:
-   nome:
-     type: string
-     exemple: "serviço de Limpeza"
-   descricao:
-     type: string
-     exemple:
-   categoria:
-    type: string
-    exemple: limpeza
-   enabled: 
-   type: boolean
-   exemple: true
+    # schema para criar um novo servico
+    createService:
+      type: object
+      properties:
+      nome:
+        type: string
+        example: "serviço de Limpeza"
+      descricao:
+        type: string
+        example:
+      categoria:
+        type: string
+        example: limpeza
+      enabled: 
+        type: boolean
+        example: true
      
-# schema generico para sucesso
-responseSucess:
-  type:
-  properties:
-  message:
-    type: string
-    exemple: "serviço criado com sucesso"
-  status  :
-    type: boolean
-    exemple: true
-  data:
-    type: object
-    $ref: "#/components/schemas/servico"
+    # schema generico para sucesso
+    responseSucess:
+      type:
+      properties:
+      message:
+        type: string
+        example: "serviço criado com sucesso"
+      status  :
+        type: boolean
+        example: true
+      data:
+        type: object
+        $ref: "#/components/schemas/servico"
 
 
-# schema genarico de rsposta de erro
-responseError:
-    type: object
-properties:
- massage:
-type: string
-exemple: "erro ao buscar servicos"
-data:
-type: object
-properties:
-null
+    # schema genarico de rsposta de erro
+    responseError:
+      type: object
+      properties:
+        massage:
+          type: string
+          example: "erro ao buscar servicos"
+        data:
+          type: object
+          properties:
+            null
