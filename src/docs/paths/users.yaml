@@ -1,5 +1,5 @@
 paths:
-  /user:
+  /users:
     get:
       summary: Listar todos os usuários
       tags:
@@ -20,7 +20,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
-  /user/create:
+  /users/create:
     post:
       summary: Criar um novo usuário
       tags:
@@ -46,7 +46,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-  /user/{id}:
+  /users/{id}:
     get:
       summary: Buscar usuário por ID
       tags:
@@ -73,7 +73,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ResponseError"
-  /user/update/{id}:
+  /users/update/{id}:
     put:
       summary: Atualizar usuário
       tags:
@@ -113,7 +113,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseError"
 
-    /user/delete/{id}:
+    /users/delete/{id}:
       summary: Apagar usuário
       tags:
         - Usuários
@@ -144,11 +144,11 @@ paths:
     post:
       summary: login de um usuário
       tags:
-      - Usuários
+        - Usuários
       description: Faqzer login de un usuário
       requestBody:
-        requered: true
-        conten:
+        required: true
+        content:
           application/json:
             schema:
               $ref: "#/components/schemas/LoginUser"
@@ -167,7 +167,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/ResponseError"
         "400":
-          description: Dados inválidos
+          description: "erro ao logar usuário"
           content:
             application/json:
               schema:

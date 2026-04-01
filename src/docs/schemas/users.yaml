@@ -1,56 +1,117 @@
-  components:
-    schemas:
+components:
+  schemas:
+    user:
       type: object
       properties:
-      id:
-        type: varchar
-        example: 1
-      nome:
-        type: string
-        example: Gilson Monteiro
-      numero_identificação:
-        type: number
-        example: M001S
-      data_nascimento:
-        type: date
-        example: 26-11-1999
-      email:
-        type: string
-        example: gilsonpatasmonteiro@gmail.com
-      telefone:
-        type: number
-        example: 5872820
-      pais:
-        type: string
-        example: Cabo Verde
-      localidade:
-        type: string
-        example: Tarrafal
-      password:
-        type: string
-        example: 12345678
-      enabled:
-        type: boolean
-        example: true
-      created_at: 
-        type: string
-        example: "2022-01-01T00:00:00.000Z"
-      updated_at:
-        type: string
-        example: "2022-01-01T00:00:00.000Z"
+        id:
+          type: varchar
+          example: 1
+        nome:
+          type: string
+          example: Gilson Monteiro
+        numero_identificação:
+          type: number
+          example: "123456789"
+        data_nascimento:
+          type: date
+          example: 26-11-1999
+        email:
+          type: string
+          example: "fulengsalts@gmail.com"
+        telefone:
+          type: number
+          example: 5872820
+        pais:
+          type: string
+          example: Cabo Verde
+        localidade:
+          type: string
+          example: Tarrafal
+        password:
+          type: string
+          example: "tarrafal"
+        enabled:
+          type: boolean
+          example: true
+        created_at: 
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
+        updated_at:
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
       
       #schema para criar um novo utilizador
-    
-    
+    CreateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          exemple: "Gilson Monteiro"
+        numero_identificacao:
+          type: string
+          exemple: "123456789"
+        data_nascimento:
+          type: string
+          exemple: "26-11-1999"
+        email:
+          type: string
+          exemple: "fulengsalts@gmail.com"
+        telefone:
+          type: string
+          exemple: "5872820"
+        pais:
+          type: string
+          exemple: "cabo verde"
+        localidade:
+          type: string
+          example: "Tarrafal"
+        password:
+          type: string
+          example: "tarrafal"
+        enabled:
+          type: boolean
+          example: true 
+
+    UpdateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "usuário 1"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "20-10-1999"
+        email:
+          type: string
+          example: "[EMAIL_ADDRESS]"
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "cabo verde"
+        localidade:
+          type: string
+          example: "Assomada"
+        password:
+          type: string
+          example: "senha123"
+        enabled:
+          type: boolean
+          example: true 
+
     LoginUser:
      type: object
-     propertes:
+     properties:
         email:
-          tyte: string
-          exemple: "user@example.com"
+          type: string
+          example: "user@example.com"
         password:
-        type: string
-        string: "senha123"
+          type: string
+          example: "senha123"
       # Schema genérico de resposta de sucesso
     ResponseSucess:
       type: object
