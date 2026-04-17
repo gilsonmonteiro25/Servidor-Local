@@ -1,82 +1,81 @@
-#schema/servico.yaml
-
-   # id: string,
-   # nome: string,
-   # descricao: string,
-   # categoria: string,
-   # enabled: boolean,
-   # created_at: string,
-   # updated_at: string
+# schema/servico.yaml
+#  id: string,
+#  nome: string,
+#  descricao: string,
+#  categoria: string,
+#  enabled: boolean,
+#  created_at: string,
+#  updated_at: string
 
 components:
   schemas:
-  # schema principal de servico
-    servico:
+    # shema principal de servico
+    Servico:
       type: object
       properties:
         id:
-           type: integer
-           example: 1
+          type: integer
+          example: 1
         nome:
           type: string
-          example: "servico de limpeza"
+          example: "Serviço de Limpeza"
         descricao:
           type: string
-          exemple: "servico de limpeza proficional para residências e..."
+          example: "Serviço de limpeza profissional para residências e empresas."
         categoria:
           type: string
-          example: "limpeza"
+          example: "Limpeza"
         enabled:
           type: boolean
           example: true
         created_at:
-           type: string
-           example: "2022-01-01T00:00:00.000Z"
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
         updated_at:
-           type: string
-           example:  "2022-01-01T00:00:00.000Z"
-
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
 
     # schema para criar um novo servico
-    createService:
+    CreateService:
       type: object
       properties:
-      nome:
-        type: string
-        example: "serviço de Limpeza"
-      descricao:
-        type: string
-        example:
-      categoria:
-        type: string
-        example: limpeza
-      enabled: 
-        type: boolean
-        example: true
-     
-    # schema generico para sucesso
-    responseSucess:
-      type:
-      properties:
-      message:
-        type: string
-        example: "serviço criado com sucesso"
-      status  :
-        type: boolean
-        example: true
-      data:
-        type: object
-        $ref: "#/components/schemas/servico"
-
-
-    # schema genarico de rsposta de erro
-    responseError:
-      type: object
-      properties:
-        massage:
+        nome:
           type: string
-          example: "erro ao buscar servicos"
+          example: Servico de Limpeza
+        descricao:
+          type: string
+          example: Servico de limpeza profissional para residências e empresas.
+        categoria:
+          type: string
+          example: Limpeza
+        enabled:
+          type: boolean
+          example: true
+
+    # schema generico para sucesso
+    ResponseSuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Serviço criado com sucesso"
+        status:
+          type: boolean
+          example: true
         data:
           type: object
-          properties:
-            null
+          $ref: "#/components/schemas/Servico"
+
+    # schema generico de resposta de erro
+    ResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Erro ao buscar serviços"
+        status:
+          type: boolean
+          example: false
+        data:
+          type: object
+          properties: null

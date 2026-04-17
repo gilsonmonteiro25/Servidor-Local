@@ -1,8 +1,7 @@
-
 import db from "../lib/db.js"
-import type { PropostaDBType } from "../utils/types.js"
+import { EstadoProposta, type PropostaDBType } from "../utils/types.js"
 import { generateUUID } from "../utils/uuid.js"
-
+import { type RowDataPacket } from "mysql2"
 
 export const PropostaModel = {
     async create(proposta: PropostaDBType) {
@@ -13,9 +12,9 @@ export const PropostaModel = {
 
                 [
                     generateUUID(),
-                    proposta.id_prestacao_servico,
-                    proposta.preco_hora,
-                    proposta.horas_estimadas,
+                    proposta.idPrestacaoServico,
+                    proposta.precoHora,
+                    proposta.horasEstimadas,
                     proposta.estado,
                     proposta.enabled,
                     new Date(),
@@ -36,17 +35,29 @@ export const PropostaModel = {
         return rows
     },
 
-    async get(id: string) {
+    async get(id: string): Promise<PropostaDBType | null> {
         try {
-            const [rows] = await db.execute(
-                `SELECT * FROM tbl_propostas 
-                WHERE tbl_propostas.id = ?`,
+            // types this the correct way 
+            // rows is an array of objects in this case I want to get the array of proposals, mind type errors
+            //Type '[QueryResult, FieldPacket[]]' is not assignable to type 'PropostaDBType[]'.
+            // do not use any as type
+            // use the correct type from utils/types.ts
+            // fix it so it works for that error above
+
+            const [rows] = await db.execute<PropostaDBType[] & RowDataPacket[]>(
+                `SELECT DISTINCT
+                pt.*,
+                pr.id as owner
+                FROM tbl_propostas pt
+                INNER JSON tbl_prestadores por ON pt.id_prestador = pr.id
+                INNER JSON tbl_utilizadores u ON pr.id_utilizadores = u.id
+                WHERE pt.id = ?`,
 
                 [id]
             )
 
             if (Array.isArray(rows) && rows.length === 0) return null
-            return Array.isArray(rows) ? rows[0] : null
+            return Array.isArray(rows) ? rows[0]! : null
         } catch (err) {
             console.log(err)
             return null
@@ -66,9 +77,9 @@ export const PropostaModel = {
                 WHERE id = ?`,
 
                 [
-                    proposta.id_prestacao_servico,
-                    proposta.preco_hora,
-                    proposta.horas_estimadas,
+                    proposta.idPrestacaoServico,
+                    proposta.precoHora,
+                    proposta.horasEstimadas,
                     proposta.estado,
                     proposta.enabled,
                     new Date(),
@@ -97,5 +108,44 @@ export const PropostaModel = {
             console.log(err)
             return null
         }
-    }
+    },
+
+    async getByPrestacaoServico(idPrestacaoServico: string): Promise<PropostaDBType[] | null> {
+        try {
+            const [rows] = await db.execute<PropostaDBType[] & RowDataPacket[]>(
+                `SELECT * FROM tbl_propostas 
+                WHERE tbl_propostas.id_prestacao_servico = ?`,
+
+                [idPrestacaoServico]
+            )
+
+            if (Array.isArray(rows) && rows.length === 0) return null
+            return Array.isArray(rows) ? rows : null
+        } catch (err) {
+            console.log(err)
+            return null
+        }
+    },
+
+    async acceptProposal(id: string) {
+        try {
+            const [rows] = await db.execute(
+                `UPDATE tbl_propostas 
+                SET estado = ?, 
+                updated_at = ?
+                WHERE id = ?`,
+
+                [
+                    EstadoProposta.ACEITE,
+                    new Date(),
+                    id
+                ]
+            )
+            console.log({ rows })
+            return rows
+        } catch (err) {
+            console.log(err)
+            return null
+        }
+    },
 }

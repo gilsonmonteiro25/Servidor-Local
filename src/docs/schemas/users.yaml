@@ -1,89 +1,33 @@
+# id: string,
+# nome: string,
+# numero_identificacao: string,
+# data_nascimento: string,
+# email: string,
+# telefone: string,
+# pais: string,
+# localidade: string,
+# password: string,
+# enabled: boolean,
+# created_at: string,
+# updated_at: string
+
 components:
   schemas:
-    user:
+    Users:
       type: object
       properties:
         id:
-          type: varchar
+          type: integer
           example: 1
         nome:
           type: string
-          example: Gilson Monteiro
-        numero_identificação:
-          type: number
-          example: "123456789"
-        data_nascimento:
-          type: date
-          example: 26-11-1999
-        email:
-          type: string
-          example: "fulengsalts@gmail.com"
-        telefone:
-          type: number
-          example: 5872820
-        pais:
-          type: string
-          example: Cabo Verde
-        localidade:
-          type: string
-          example: Tarrafal
-        password:
-          type: string
-          example: "tarrafal"
-        enabled:
-          type: boolean
-          example: true
-        created_at: 
-          type: string
-          example: "2022-01-01T00:00:00.000Z"
-        updated_at:
-          type: string
-          example: "2022-01-01T00:00:00.000Z"
-      
-      #schema para criar um novo utilizador
-    CreateUser:
-      type: object
-      properties:
-        nome:
-          type: string
-          exemple: "Gilson Monteiro"
-        numero_identificacao:
-          type: string
-          exemple: "123456789"
-        data_nascimento:
-          type: string
-          exemple: "26-11-1999"
-        email:
-          type: string
-          exemple: "fulengsalts@gmail.com"
-        telefone:
-          type: string
-          exemple: "5872820"
-        pais:
-          type: string
-          exemple: "cabo verde"
-        localidade:
-          type: string
-          example: "Tarrafal"
-        password:
-          type: string
-          example: "tarrafal"
-        enabled:
-          type: boolean
-          example: true 
-
-    UpdateUser:
-      type: object
-      properties:
-        nome:
-          type: string
-          example: "usuário 1"
+          example: "Usuário 1"
         numero_identificacao:
           type: string
           example: "123456789"
         data_nascimento:
           type: string
-          example: "20-10-1999"
+          example: "2000-01-01"
         email:
           type: string
           example: "[EMAIL_ADDRESS]"
@@ -92,28 +36,116 @@ components:
           example: "123456789"
         pais:
           type: string
-          example: "cabo verde"
+          example: "Brasil"
         localidade:
           type: string
-          example: "Assomada"
+          example: "São Paulo"
         password:
           type: string
           example: "senha123"
         enabled:
           type: boolean
-          example: true 
+          example: true
+        created_at:
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
+        updated_at:
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
+
+    CreateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Usuário 1"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "2000-01-01"
+        email:
+          type: string
+          example: "[EMAIL_ADDRESS]"
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "Brasil"
+        localidade:
+          type: string
+          example: "São Paulo"
+        password:
+          type: string
+          example: "senha123"
+        enabled:
+          type: boolean
+          example: true
+
+    UpdateUser:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: "Usuário 1"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "2000-01-01"
+        email:
+          type: string
+          example: "[EMAIL_ADDRESS]"
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "Brasil"
+        localidade:
+          type: string
+          example: "São Paulo"
+        enabled:
+          type: boolean
+          example: true
+
+    ResetPassword:
+      type: object
+      properties:
+        password:
+          type: string
+          example: "senha123"
+        oldPassword:
+          type: string
+          example: "senha123"
 
     LoginUser:
-     type: object
-     properties:
+      type: object
+      properties:
         email:
           type: string
           example: "user@example.com"
         password:
           type: string
           example: "senha123"
-      # Schema genérico de resposta de sucesso
-    ResponseSucess:
+
+    UserResponseError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Erro ao buscar usuários"
+        status:
+          type: boolean
+          example: false
+        data:
+          type: object
+          properties: null
+
+    UserResponseSuccess:
       type: object
       properties:
         message:
@@ -124,18 +156,4 @@ components:
           example: true
         data:
           type: object
-          $ref: "#/components/schemas/CreateUser"
-
-    # Schema genérico de resposta de erro
-    ResponseError:
-      type: object
-      properties:
-        message:
-          type: string
-          example: "Erro ao processar usuário"
-        status:
-          type: boolean
-          example: false
-        data:
-          nullable: true
-          example: null
+          $ref: "#/components/schemas/Users"

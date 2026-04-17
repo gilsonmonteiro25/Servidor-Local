@@ -1,19 +1,34 @@
 import { Router } from "express";
 import { UserController } from "../controllers/users.controller.js";
-import AuthMiddlewere from "../security/auth.middlewere.js";
+import AuthMiddleware, { authorize } from "../security/auth.middleware.js";
+
+
+const UserRoute = {
+    create: "/create",
+    getAll: "/",
+    getById: "/:id",
+    update: "/update/:id",
+    delete: "/delete/:id",
+    resetPassword: "/reset-password/:id",
+    login: "/login"
+}
 
 const router = Router()
 
-router.post("/create", UserController.create)
+router.post(UserRoute.login, UserController.login)
 
-router.get("/", AuthMiddlewere,UserController.getAll)
+router.post(UserRoute.create, UserController.create)
 
-router.get("/:id", UserController.getById)
+router.use(AuthMiddleware, authorize)
 
-router.put("/:id", UserController.update)
+router.get(UserRoute.getAll, UserController.getAll)
 
-router.delete("/:id", UserController.delete)
+router.get(UserRoute.getById, UserController.getById)
 
-router.post("/login", UserController.login)
+router.put(UserRoute.update, UserController.update)
 
-export { router };
+router.delete(UserRoute.delete, UserController.delete)
+
+router.put(UserRoute.resetPassword, UserController.resetPassword)
+
+export { router }

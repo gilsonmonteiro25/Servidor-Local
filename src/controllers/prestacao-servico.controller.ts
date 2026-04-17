@@ -1,6 +1,6 @@
-import type { Request, Response } from "express"
-import type { PrestacaoServicoDBType } from "../utils/types.js"
-import { PrestacaoServicoModel } from "../models/prestacao-servico..model.js"
+import { response, type Request, type Response } from "express"
+import type { prestacaoServicoByCategoriaType, PrestacaoServicoDBType, ResponseType } from "../utils/types.js"
+import { PrestacaoServicoModel } from "../models/prestacao-servico.model.js"
 
 export const PrestacaoServicoController = {
     async create(req: Request, res: Response) {
@@ -46,6 +46,34 @@ export const PrestacaoServicoController = {
             status: "success",
             message: "Prestacoes de servico buscadas com sucesso",
             data: getAllPrestacaoServicosResponse
+        })
+    },
+
+    async getAllPrestacoesServicoByCategoria(req: Request, res: Response) {
+        const { categoria } = req.params
+
+        if (!categoria || Array.isArray(categoria)) {
+            return res.status(400).json({
+                status: "error",
+                message: "Categoria obrigatoria",
+                data: null
+            })
+        }
+
+        const prestacoesServicoResponse = await PrestacaoServicoModel.getAllPrestacoesServicoBy(categoria)
+
+        if (!prestacoesServicoResponse) {
+            return res.status(404).json({
+                status: "error",
+                message: "Nenhuma prestacao de servico encontrada para esta categoria",
+                data: null
+            })
+        }
+
+        return res.status(200).json({
+            status: "success",
+            message: "Prestacoes de servico por categoria buscadas com sucesso",
+            data: prestacoesServicoResponse
         })
     },
 
@@ -141,5 +169,67 @@ export const PrestacaoServicoController = {
             message: "Prestacao de servico apagada com sucesso",
             data: deletePrestacaoServicoResponse
         })
+    },
+
+    async getAllPrestacaoServicoDetalhada(req: Request, res: Response) {
+        const { limit, offset } = req.query as { limit: string, offset: string }
+
+        let LIMIT = 10
+        let OFFSET = 0
+
+        if (limit && parseInt(limit) > 0) LIMIT = parseInt(limit)
+        if (offset && parseInt(offset) > 0) OFFSET = parseInt(offset)
+
+        const getAllPrestacaoServicosResponse = await PrestacaoServicoModel.getAllPrestacaoServicoDetalhada(LIMIT, OFFSET)
+
+        if (!getAllPrestacaoServicosResponse) {
+            return res.status(500).json({
+                status: "error",
+                message: "Erro ao buscar prestacoes de servico",
+                data: null
+            })
+        }
+
+        return res.status(200).json({
+            status: "success",
+            message: "Prestacoes de servico buscadas com sucesso",
+            data: getAllPrestacaoServicosResponse
+        })
+    },
+    async getAllPrestacaoServicoByCategoria(req: Request, res: Response) {
+        const { categoria } = req.params
+        const { limit,offset } = req.query as { limit: string, offset: string}
+
+        let LIMIT = 10
+        let OFFSET = 0
+
+        if (limit && parseInt(limit) > 0) LIMIT = parseInt(limit)
+        if (offset && parseInt(offset) > 0) OFFSET = parseInt(offset)
+
+        if (!categoria) {
+            const response: ResponseType<null> = {
+            status: "error",
+            message: "categoria obrigatório",
+            data: null
+        }
+        return res.status(400).json(response)
+        }
+        
+        const getAllPrestacaoServicosByCategoriaResponse = await PrestacaoServicoModel.getAllPrestacaoServicoByCategoria(categoria as string, LIMIT,OFFSET)
+
+        if (getAllPrestacaoServicosByCategoriaResponse) {
+            const response: ResponseType<null> = {
+                status: "error",
+                message: "prestacao de servico nao encontrada",
+                data: null
+            }
+            return res.status(404).json(response)
+        }
+        const response: ResponseType<prestacaoServicoByCategoriaType[]> = {
+            status: "error",
+            message: "prestacao de servico encontrado com sucesso",
+            data: getAllPrestacaoServicosByCategoriaResponse
+        }
+        return res.status(200).json(response)
     }
-}
+};

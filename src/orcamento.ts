@@ -1,7 +1,5 @@
-import db from "./lib/db.js"
 import { catalogoServicos } from "./servico.js"
-import { type OrcamentoDBType, type PedidoServicoType, type PrestadorType, type ServicoType } from "./utils/types.js"
-import { generateUUID } from "./utils/uuid.js"
+import { type PedidoServicoType, type PrestadorType, type ServicoType } from "./utils/types.js"
 
 
 const taxaUrgencia: number = 0.3
@@ -174,7 +172,7 @@ export function calcularOrcamento(pedido: PedidoServicoType) {
         totalFinal = totalFinal - (totalBruto * percentagemDesconto)
     }
 
-    return totalFinal}
+    return totalFinal
 
     // () => {} --- arrow function
     // function () {} --- function normal
@@ -195,101 +193,4 @@ export function calcularOrcamento(pedido: PedidoServicoType) {
     desconto sobre total bruto: 100 * 0.1 = 10
 
     */
-   export async function create(newOrcamento: OrcamentoDBType) {
-    try {
-
-        const [rows] = await db.execute(
-            `INSERT INTO tbl_prestador
-            (id,total, id_utilizadores, enabled, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?; ?)`,
-            [
-                generateUUID(),
-                newOrcamento.total,
-                newOrcamento.id_utilizadores,
-                newOrcamento.enabled,
-                new Date(),
-                new Date()
-                
-            ]
-        );
-        console.log({ rows});
-
-        return rows;
-
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-  }
-   export async function getALL() {
-    try{
-        const query = `SELECT * FROM tbl_orcamento`
-
-        const rows = await db.execute(query)
-
-        return Array.isArray(rows && rows.length > 0 ? rows[0] : [])
-    } catch (error) {
-        console.log(error)
-        return null
-    }
-    }
-    export async function get(id: string) {
-      try {
-        const query = `SELECT * FROM tbl_orcamento WHERE id = ?`
-
-         const value = [id]
-
-         const rows = await db.execute(query, value)
-
-         return Array.isArray(rows) && rows.length > 0 ? rows[0] : null
-
-      }catch (error) {
-        console.log(error)
-        return null
-      }
-   }   
-
-
-   export async function update(id: string, orcamentoAtualizado: OrcamentoDBType) {
-    try {
-        const query = `UPDATE tbl_prestador
-                SET
-                  id=?,
-                  total=?
-                  id_utilizadores=?,
-                  enabled=?,
-                  updated=?
-                  
-                  WHERE
-                     id=?
-                           ;`
-            const values = [
-            
-            orcamentoAtualizado.id,
-            orcamentoAtualizado.total,
-            orcamentoAtualizado.id_utilizadores,
-            orcamentoAtualizado.enabled,
-            Date(),
-            id
-        ]
-        const rows = await db.execute(query, values) 
-
-        return rows
-    } catch (error) {
-        console.log(error)
-        return null
-     }
-   }
-
-   export async function deleteOrcamento(id:string) {
-    try {
-        const query =`DELETE FROM tbl_orcamento WHERE id=?`
-        const values =[id]
-        const rows: any = await db.execute(query, values)
-        return rows[0]?.affectedRows === 0 ? null : rows
-
-       } catch (error) {
-        console.log(error)
-        return null
-        }
-    }
+}
