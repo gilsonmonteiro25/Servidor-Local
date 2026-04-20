@@ -1,0 +1,41 @@
+components:
+  schemas:
+    Empresa:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: "Usuário 1"
+        numero_identificacao:
+          type: string
+          example: "123456789"
+        data_nascimento:
+          type: string
+          example: "2000-01-01"
+        email:
+          type: string
+          example: "[EMAIL_ADDRESS]"
+        telefone:
+          type: string
+          example: "123456789"
+        pais:
+          type: string
+          example: "Brasil"
+        localidade:
+          type: string
+          example: "São Paulo"
+        password:
+          type: string
+          example: "senha123"
+        enabled:
+          type: boolean
+          example: true
+        created_at:
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
+        updated_at:
+          type: string
+          example: "2022-01-01T00:00:00.000Z"
