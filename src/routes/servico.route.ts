@@ -1,7 +1,6 @@
 import { Router } from "express"
 import { ServicoController } from "../controllers/servico.controller.js"
-import AuthMiddleware from "../security/auth.middleware.js"
-import authorize from "../security/authorize.middleware.js"
+import AuthMiddleware, { authorize } from "../security/auth.middleware.js"
 
 const ServiceRoute = {
     create: "/create",
@@ -13,7 +12,7 @@ const ServiceRoute = {
 
 const router = Router()
 
-router.use(AuthMiddleware, authorize())
+router.use(AuthMiddleware, authorize)
 
 router.post(ServiceRoute.create, ServicoController.createServico)
 router.get(ServiceRoute.getAll, ServicoController.getAll)
