@@ -2,7 +2,7 @@
 import { Router } from "express";
 import { PrestadorController } from "../controllers/prestador.controller.js";
 import AuthMiddleware from "../security/auth.middleware.js";
-import authorize from "../security/authorize.middleware.js";
+import {authorize} from "../security/auth.middleware.js";
 import { Role } from "../utils/types.js"
 
 const PrestadorRoute = {
@@ -19,7 +19,7 @@ router.get(PrestadorRoute.getAll, PrestadorController.getAll)
 
 router.get(PrestadorRoute.getById, PrestadorController.get)
 
-router.use(AuthMiddleware, authorize())
+router.use(AuthMiddleware)
 
 router.post(PrestadorRoute.create, authorize([Role.ADMIN, Role.CLIENTE, Role.EMPRESA]), PrestadorController.create)
 

@@ -2,6 +2,7 @@ import { categoriaModel } from "../../models/categoria.model.js";
 import { empresaModel } from "../../models/empresa.model.js";
 import { PrestadorModel } from "../../models/prestador.model.js";
 import { ServiceModel } from "../../models/servico.model.js";
+import { UserModel } from "../../models/users.model.js";
 import type { deleteService } from "../../servico.js";
 import type { PrestadorDBType, ServicoDBType } from "../../utils/types.js";
 
@@ -32,7 +33,11 @@ export const PrestadorResolver = {
     Prestador: {
         empresa: async (parent: { id_empresa: string }) => {
             return await empresaModel.get(parent.id_empresa);
+        },
+
+         utilizador: async (parent: { id_utilizador: string }) => {
+            return await UserModel.get(parent.id_utilizador);
+        },
         }
     }
     
-}

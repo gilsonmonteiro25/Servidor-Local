@@ -26,6 +26,7 @@
     "graphql-tag": "^2.12.6",
     "jest": "^30.3.0",
     "jsonwebtoken": "^9.0.3",
+    "mysql2": "^3.22.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid": "^13.0.0"

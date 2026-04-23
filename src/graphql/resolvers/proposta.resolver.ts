@@ -10,7 +10,7 @@ export const PropostaResolver = {
             return await PropostaModel.getAll();
         },
 
-        getpropostaById: async (_: any, args: { id: string }) => {
+        getPropostaById: async (_: any, args: { id: string }) => {
             return await PropostaModel.get(args.id)
         }
     },

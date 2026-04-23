@@ -2,7 +2,7 @@
 import { Router } from "express"
 import { PropostaController } from "../controllers/proposta.controller.js"
 import AuthMiddleware from "../security/auth.middleware.js"
-import authorize from "../security/authorize.middleware.js"
+import {authorize} from "../security/auth.middleware.js"
 import { Role } from "../utils/types.js"
 
 const PropostaRoute = {
@@ -18,7 +18,7 @@ const router = Router()
 
 router.get(PropostaRoute.getById, authorize([Role.ADMIN ,Role.CLIENTE, Role.EMPRESA, Role.PRESTADOR]), PropostaController.get)
 
-router.use(AuthMiddleware, authorize())
+router.use(AuthMiddleware)
 
 router.get(PropostaRoute.getAll,authorize([Role.ADMIN]), PropostaController.getAll)
 

@@ -25,7 +25,7 @@ export const PrestacaoServicoResolver = {
         createPrestacaoService: async (_: any, args: { prestacaoservice: PrestacaoServicoDBType}) => {
             return await PrestacaoServicoModel.create(args.prestacaoservice);
         },
-        updatedprestacaoServico: async (_: any, args: { id: string, prestacaoservice: PrestacaoServicoDBType }) => {
+        updatedPrestacaoServico: async (_: any, args: { id: string, prestacaoservice: PrestacaoServicoDBType }) => {
             return await PrestacaoServicoModel.update(args.id, args.prestacaoservice);
         },
         deletePrestacaoService: async (_: any, args: { id: string }) => {

@@ -6,7 +6,7 @@ import type { ServicoDBType } from "../../utils/types.js";
 
 export const ServiceResolver = {
     Query: {
-        getAllService: async () => {
+        getAllServices: async () => {
             return await ServiceModel.getAll();
         },
 
