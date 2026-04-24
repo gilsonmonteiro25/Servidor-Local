@@ -55,7 +55,7 @@ type Utilizador {
         id: ID!,
         nome: String!,
         descricao: String!,
-        id_categoria: Categoria,
+        categoria: Categoria,
         enabled: Boolean,
         created_at: String,
         updated_at: String
@@ -178,13 +178,13 @@ type Utilizador {
     createService(
         nome: String!,
         descricao: String!,
-        id_categoria:  String,
+        categoria:  String,
         enabled: Boolean): Service,
     updateService(
         id: ID!,
         nome: String!,
         descricao: String!,
-        id_categoria:  String,
+        categoria:  String,
         enabled: Boolean): Service,
     deleteService(id: ID!): Service,  
     createProposta(    
